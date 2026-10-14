@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Relawan Kita — pendaftaran relawan untuk kegiatan sosial dan tanggap bencana alam." />
+  <title>Relawan Kita — Pendaftaran Relawan Bencana Alam</title>
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <img src="assets/images/logo.svg" alt="" class="loader__logo" />
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#beranda" class="brand">
+        <img src="assets/images/logo.svg" alt="" width="36" height="36" />
+        <span>Relawan<b>Kita</b></span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Navigasi utama">
+        <a href="#kegiatan">Kegiatan</a>
+        <a href="#divisi">Divisi</a>
+        <a href="#daftar">Daftar</a>
+        <a href="#cara-kerja">Cara Kerja</a>
+        <a href="#dampak">Dampak</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="btn btn--ghost" id="openMine" type="button">
+          Pendaftaranku <span class="badge" id="mineCount">0</span>
+        </button>
+        <a href="#kegiatan" class="btn btn--primary magnetic" id="navDaftar">Jadi Relawan</a>
+        <button class="nav__burger" id="burger" type="button" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="beranda">
+      <div class="hero__bg" aria-hidden="true">
+        <span class="blob blob--1"></span><span class="blob blob--2"></span><span class="blob blob--3"></span>
+        <div class="grid-lines"></div>
+      </div>
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <span class="pill reveal"><span class="pill__dot"></span> Siaga Bencana · Pendaftaran relawan dibuka</span>
+          <h1 class="hero__title" data-split>Saat bencana datang, <span class="grad">kita bergerak</span> bersama.</h1>
+          <p class="hero__sub reveal" style="--d:.5s">Rekrutmen relawan untuk kegiatan sosial &amp; tanggap bencana alam. Pilih kegiatan, tentukan divisi yang sesuai keahlianmu, dan bantu saudara kita bangkit kembali.</p>
+
+          <div class="hero__cta reveal" style="--d:.65s">
+            <a href="#kegiatan" class="btn btn--primary btn--lg magnetic">Pilih Kegiatan →</a>
+            <a href="#divisi" class="btn btn--ghost btn--lg">Lihat Divisi</a>
+          </div>
+
+          <div class="trust reveal" style="--d:.8s">
+            <div class="avatars" id="trustAvatars"></div>
+            <p><b data-count="1240">0</b>+ relawan siap diterjunkan bulan ini</p>
+          </div>
+        </div>
+
+        <div class="hero__visual reveal" style="--d:.3s">
+          <img src="assets/images/hero.svg" alt="Ilustrasi para relawan bergandengan dengan simbol hati" class="hero__img parallax" data-speed="0.04" />
+          <div class="float-card float-card--a parallax" data-speed="0.09">
+            <img src="assets/icons/bencana.svg" alt="" width="28" height="28" />
+            <div><b>Posko Semarang aktif</b><small>Tanggap darurat banjir</small></div>
+          </div>
+          <div class="float-card float-card--b parallax" data-speed="-0.07">
+            <span class="live-dot"></span>
+            <div><b>Salsa baru bergabung</b><small>Divisi Medis</small></div>
+          </div>
+          <div class="float-card float-card--c parallax" data-speed="0.06">
+            <b class="big" data-count="2000">0</b><small>porsi makanan<br />dibagikan hari ini</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee"></div>
+    </div>
+
+    <!-- Kegiatan -->
+    <section class="section" id="kegiatan">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Langkah 1 · Pilih Kegiatan</span>
+          <h2>Kegiatan relawan yang membuka pendaftaran</h2>
+          <p>Pilih satu kegiatan, lalu kamu akan diarahkan untuk memilih divisi.</p>
+        </div>
+        <div class="kegiatan-grid" id="kegiatanGrid"></div>
+      </div>
+    </section>
+
+    <!-- Divisi -->
+    <section class="section section--tint" id="divisi">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Langkah 2 · Pilih Divisi</span>
+          <h2>Pilih divisi sesuai keahlianmu</h2>
+          <p class="table-note" id="tableNote" aria-live="polite"></p>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table class="table" id="divisiTable">
+            <caption class="sr-only">Daftar divisi relawan, tugas utama, dan kuota</caption>
+            <thead>
+              <tr><th scope="col">Divisi</th><th scope="col">Tugas Utama</th><th scope="col">Kuota</th></tr>
+            </thead>
+            <tbody>
+              <tr data-divisi="Medis" data-kuota="10" data-icon="medis" data-medis>
+                <td><span class="div-name"><img src="assets/icons/medis.svg" alt="" width="22" height="22" /><span>Medis<small class="div-badge">Khusus jurusan kesehatan</small></span></span></td>
+                <td>Pertolongan pertama</td>
+                <td><b>10 orang</b><small class="sisa"></small></td>
+              </tr>
+              <tr data-divisi="Dapur Umum" data-kuota="15" data-icon="dapur">
+                <td><span class="div-name"><img src="assets/icons/dapur.svg" alt="" width="22" height="22" />Dapur Umum</span></td>
+                <td>Memasak &amp; distribusi</td>
+                <td><b>15 orang</b><small class="sisa"></small></td>
+              </tr>
+              <tr data-divisi="Logistik" data-kuota="12" data-icon="logistik">
+                <td><span class="div-name"><img src="assets/icons/logistik.svg" alt="" width="22" height="22" />Logistik</span></td>
+                <td>Bongkar muat &amp; gudang</td>
+                <td><b>12 orang</b><small class="sisa"></small></td>
+              </tr>
+              <tr data-divisi="Pendataan" data-kuota="6" data-icon="pendataan">
+                <td><span class="div-name"><img src="assets/icons/pendataan.svg" alt="" width="22" height="22" />Pendataan</span></td>
+                <td>Data pengungsi</td>
+                <td><b>6 orang</b><small class="sisa"></small></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form pendaftaran -->
+    <section class="section" id="daftar">
+      <div class="container register">
+        <form class="form-card reveal" id="joinForm" novalidate>
+          <span class="eyebrow">Langkah 3 · Formulir</span>
+          <h2>Daftar Relawan</h2>
+
+          <div class="picked" id="picked"></div>
+
+          <fieldset class="fields" id="formFields" disabled>
+          <div class="field">
+            <label for="j-name">Nama</label>
+            <input id="j-name" name="name" maxlength="60" autocomplete="name" placeholder="Contoh: Salsa Amelia" />
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="j-jurusan">Jurusan</label>
+            <input id="j-jurusan" name="jurusan" maxlength="60" placeholder="Contoh: Keperawatan" />
+            <small class="err"></small>
+          </div>
+          <div class="field">
+            <label for="j-divisi">Pilihan Divisi</label>
+            <select id="j-divisi" name="divisi"><option value="">Pilih divisi…</option></select>
+            <small class="err"></small>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Daftar</button>
+          </fieldset>
+        </form>
+
+        <aside class="info reveal" style="--d:.15s">
+          <div class="info__card info__card--warn">
+            <img src="assets/icons/medis.svg" alt="" width="28" height="28" />
+            <div>
+              <b>Divisi Medis khusus jurusan kesehatan</b>
+              <p>Kedokteran, Keperawatan, Farmasi, Kesehatan Masyarakat, Kebidanan, dan Gizi.</p>
+            </div>
+          </div>
+          <div class="info__card">
+            <h3>Info Posko</h3>
+            <ul class="info__list">
+              <li><img src="assets/icons/pin.svg" alt="" width="18" height="18" /><span><small>Lokasi posko</small><b id="infoPosko">–</b></span></li>
+              <li><img src="assets/icons/calendar.svg" alt="" width="18" height="18" /><span><small>Mulai bertugas</small><b id="infoMulai">–</b></span></li>
+              <li><img src="assets/icons/clock.svg" alt="" width="18" height="18" /><span><small>Durasi</small><b id="infoDurasi">–</b></span></li>
+              <li><img src="assets/icons/users.svg" alt="" width="18" height="18" /><span><small>Total kuota</small><b id="totalSisa"></b></span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Cara kerja -->
+    <section class="section" id="cara-kerja">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Cara Kerja</span>
+          <h2>Tiga langkah menuju aksi nyata</h2>
+        </div>
+        <ol class="steps">
+          <li class="step reveal" style="--d:0s">
+            <span class="step__num">01</span>
+            <h3>Pilih kegiatan</h3>
+            <p>Tentukan kegiatan bencana yang ingin kamu bantu.</p>
+          </li>
+          <li class="step reveal" style="--d:.12s">
+            <span class="step__num">02</span>
+            <h3>Pilih divisi</h3>
+            <p>Klik divisi yang masih ada kuotanya. Divisi Medis hanya untuk jurusan kesehatan.</p>
+          </li>
+          <li class="step reveal" style="--d:.24s">
+            <span class="step__num">03</span>
+            <h3>Isi formulir &amp; bertugas</h3>
+            <p>Lengkapi nama dan jurusan, lalu datang ke posko sesuai jadwal.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Dampak -->
+    <section class="impact" id="dampak">
+      <div class="container">
+        <div class="section__head section__head--light reveal">
+          <span class="eyebrow">Dampak Kita</span>
+          <h2>Angka yang lahir dari kebaikan bersama</h2>
+        </div>
+        <div class="stats">
+          <div class="stat reveal" style="--d:0s"><b data-count="4820">0</b><span>Relawan diterjunkan</span></div>
+          <div class="stat reveal" style="--d:.1s"><b data-count="135">0</b><span>Posko bencana</span></div>
+          <div class="stat reveal" style="--d:.2s"><b data-count="38">0</b><span>Kabupaten/kota terbantu</span></div>
+          <div class="stat reveal" style="--d:.3s"><b data-count="21000">0</b><span>Pengungsi terdata</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimoni -->
+    <section class="section" id="cerita">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Cerita Relawan</span>
+          <h2>Mereka sudah turun ke lapangan</h2>
+        </div>
+        <div class="testi" id="testi"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--tint" id="faq">
+      <div class="container container--narrow">
+        <div class="section__head reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>Pertanyaan yang sering diajukan</h2>
+        </div>
+        <div class="faq">
+          <details class="reveal"><summary>Kenapa Divisi Medis khusus jurusan kesehatan?</summary><div><p>Pertolongan pertama di lokasi bencana butuh dasar ilmu medis agar aman bagi korban maupun relawan. Jurusan lain tetap sangat dibutuhkan di Dapur Umum, Logistik, dan Pendataan.</p></div></details>
+          <details class="reveal"><summary>Apakah ada biaya untuk menjadi relawan?</summary><div><p>Tidak. Konsumsi dan tempat istirahat selama bertugas disediakan oleh posko.</p></div></details>
+          <details class="reveal"><summary>Bagaimana jika saya salah mengisi jurusan?</summary><div><p>Batalkan pendaftaran lewat menu <b>Pendaftaranku</b>, lalu daftar ulang dengan jurusan yang benar.</p></div></details>
+          <details class="reveal"><summary>Bagaimana cara membatalkan pendaftaran?</summary><div><p>Buka menu <b>Pendaftaranku</b> di pojok kanan atas, lalu tekan <b>Batalkan</b>.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta reveal">
+          <div>
+            <h2>Mereka menunggu uluran tanganmu.</h2>
+            <p>Satu relawan bisa membantu puluhan keluarga pengungsi.</p>
+          </div>
+          <a href="#kegiatan" class="btn btn--light magnetic">Pilih Kegiatan →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <a href="#beranda" class="brand brand--light">
+          <img src="assets/images/logo.svg" alt="" width="32" height="32" />
+          <span>Relawan<b>Kita</b></span>
+        </a>
+        <p>Rekrutmen relawan untuk kegiatan sosial &amp; tanggap bencana di seluruh Indonesia.</p>
+      </div>
+      <div class="footer__cols">
+        <div><h4>Relawan</h4><a href="#kegiatan">Kegiatan</a><a href="#divisi">Divisi</a><a href="#daftar">Daftar</a><a href="#cara-kerja">Cara Kerja</a></div>
+        <div><h4>Tentang</h4><a href="#dampak">Dampak</a><a href="#cerita">Cerita</a><a href="#faq">FAQ</a></div>
+      </div>
+    </div>
+    <div class="container footer__bottom">© <span id="year"></span> Relawan Kita. Dibuat dengan ♥ untuk sesama.</div>
+  </footer>
+
+  <!-- Modal sukses -->
+  <dialog class="modal" id="successModal" aria-labelledby="successTitle">
+    <button class="modal__close" type="button" data-close aria-label="Tutup">✕</button>
+    <div id="successBody"></div>
+  </dialog>
+
+  <!-- Drawer pendaftaranku -->
+  <dialog class="drawer" id="mineDrawer" aria-labelledby="mineTitle">
+    <div class="drawer__head">
+      <h2 id="mineTitle">Pendaftaranku</h2>
+      <button class="modal__close" type="button" data-close aria-label="Tutup">✕</button>
+    </div>
+    <div class="drawer__body" id="mineList"></div>
+  </dialog>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+  <script src="js/data.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
